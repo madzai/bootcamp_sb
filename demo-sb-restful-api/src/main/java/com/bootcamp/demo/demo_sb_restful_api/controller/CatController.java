@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Set;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ResponseBody;
+import com.bootcamp.demo.demo_sb_restful_api.model.Cat;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;

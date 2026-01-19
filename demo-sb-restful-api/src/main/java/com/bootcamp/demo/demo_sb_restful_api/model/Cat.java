@@ -1,4 +1,4 @@
-package com.bootcamp.demo.demo_sb_restful_api.controller;
+package com.bootcamp.demo.demo_sb_restful_api.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
