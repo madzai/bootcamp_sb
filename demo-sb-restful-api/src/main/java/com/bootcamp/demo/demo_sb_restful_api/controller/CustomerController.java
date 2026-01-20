@@ -122,6 +122,8 @@ public class CustomerController {
   @PatchMapping("/customer")
   public Customer patchCustomer(@RequestBody Customer newCustomer,
       @RequestParam Long id) {
+    if (newCustomer == null)
+      return null;
     Optional<Customer> target = Database.customers.stream() //
         .filter(e -> e.getId().equals(id)) //
         .findAny();
