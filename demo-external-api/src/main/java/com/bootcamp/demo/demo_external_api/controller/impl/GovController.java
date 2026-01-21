@@ -1,0 +1,48 @@
+package com.bootcamp.demo.demo_external_api.controller.impl;
+
+import java.util.List;
+import java.util.stream.Collectors;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RestController;
+import com.bootcamp.demo.demo_external_api.controller.GovOperation;
+import com.bootcamp.demo.demo_external_api.dto.UserDto;
+import com.bootcamp.demo.demo_external_api.entity.UserEntity;
+import com.bootcamp.demo.demo_external_api.mapper.DtoMapper;
+import com.bootcamp.demo.demo_external_api.service.JsonPlaceHolderService;
+
+@RestController
+public class GovController implements GovOperation {
+  // ! Dependency Injection (Controller生死 depends on Service)
+  @Autowired
+  private JsonPlaceHolderService jsonPlaceHolderService;
+  @Autowired
+  private DtoMapper dtoMapper;
+
+  @Override
+  public List<UserDto> getJPHUsers() {
+    // List<A> to List<B>
+    return this.jsonPlaceHolderService.getUsers().stream() //
+        .map(e -> this.dtoMapper.map(e)) //
+        .collect(Collectors.toList());
+  }
+
+  @Override
+  public UserEntity create(UserEntity userEntity) {
+    return this.jsonPlaceHolderService.create(userEntity);
+  }
+
+  @Override
+  public UserEntity getById(Long id) {
+    return this.jsonPlaceHolderService.getById(id);
+  }
+
+  @Override
+  public void deleteById(Long id) {
+    this.jsonPlaceHolderService.deleteById(id);
+  }
+
+  @Override
+  public UserEntity updateById(Long id, UserEntity userEntity) {
+    return this.jsonPlaceHolderService.updateById(id, userEntity);
+  }
+}
