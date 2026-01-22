@@ -22,8 +22,7 @@ public class DtoMapper {
 
   public PostDto map(PostDTO postDTO) {
     return PostDto.builder() //
-        // .userId(postDTO.getUserId()) //
-        // .id(postDTO.getId()) //
+        .id(postDTO.getId()) //
         .title(postDTO.getTitle()) //
         .body(postDTO.getBody()) //
         .build();
@@ -31,7 +30,9 @@ public class DtoMapper {
 
   public CommentDto map(CommentDTO commentDTO) {
     return CommentDto.builder() //
+        .id(commentDTO.getId()) //
         .name(commentDTO.getName()) //
+        .email(commentDTO.getEmail()) //
         .body(commentDTO.getBody()) //
         .build();
   }

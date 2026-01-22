@@ -7,7 +7,7 @@ import lombok.Getter;
 @Builder
 public class PostDto {
   // private Long userId;
-  // private Long id;
+  private Long id;
   private String title;
   private String body;
 }

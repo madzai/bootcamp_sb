@@ -9,7 +9,6 @@ import com.bootcamp.demo.demo_external_api.dto.CommentDto;
 import com.bootcamp.demo.demo_external_api.dto.PostDto;
 import com.bootcamp.demo.demo_external_api.dto.UserDto;
 import com.bootcamp.demo.demo_external_api.mapper.DtoMapper;
-import com.bootcamp.demo.demo_external_api.model.dto.PostDTO;
 import com.bootcamp.demo.demo_external_api.service.JsonPlaceHolderService;
 
 @RestController
