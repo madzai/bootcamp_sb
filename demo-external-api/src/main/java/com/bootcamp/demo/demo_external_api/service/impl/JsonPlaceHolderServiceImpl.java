@@ -3,11 +3,13 @@ package com.bootcamp.demo.demo_external_api.service.impl;
 import java.util.Arrays;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import com.bootcamp.demo.demo_external_api.entity.UserEntity;
+import com.bootcamp.demo.demo_external_api.model.Cat;
+import com.bootcamp.demo.demo_external_api.model.dto.CommentDTO;
+import com.bootcamp.demo.demo_external_api.model.dto.PostDTO;
 import com.bootcamp.demo.demo_external_api.model.dto.UserDTO;
-import com.bootcamp.demo.demo_external_api.repository.UserRepository;
 import com.bootcamp.demo.demo_external_api.service.JsonPlaceHolderService;
 
 // stateless
@@ -17,8 +19,14 @@ public class JsonPlaceHolderServiceImpl implements JsonPlaceHolderService {
   // Call Json Place Holder Website API
   @Autowired
   private RestTemplate restTemplate;
+
   @Autowired
-  private UserRepository userRepository;
+  @Qualifier(value = "supercat") // ! Bean Name
+  private Cat abc;
+
+  public Cat getCat() {
+    return this.abc;
+  }
 
   @Override
   public List<UserDTO> getUsers() {
@@ -28,40 +36,17 @@ public class JsonPlaceHolderServiceImpl implements JsonPlaceHolderService {
   }
 
   @Override
-  public UserEntity getById(Long id) {
-    return this.userRepository.findById(id).orElse(null);
+  public List<PostDTO> getPosts() {
+    String url = "https://jsonplaceholder.typicode.com/posts";
+    PostDTO[] postDTOs = this.restTemplate.getForObject(url, PostDTO[].class);
+    return Arrays.asList(postDTOs);
   }
 
   @Override
-  public UserEntity create(UserEntity userEntity) {
-    return this.userRepository.save(userEntity);
-  }
-
-  @Override
-  public void deleteById(Long id) {
-    this.userRepository.deleteById(id);
-  }
-
-  @Override
-  public UserEntity updateById(Long id, UserEntity userEntity) {
-    return this.userRepository.findById(id) //
-        .map(entity -> {
-          entity.setName(userEntity.getName());
-          entity.setUsername(userEntity.getUsername());
-          entity.setEmail(userEntity.getEmail());
-          entity.setPhone(userEntity.getPhone());
-          entity.setWebsite(userEntity.getWebsite());
-          entity.setAddress_street(userEntity.getAddress_street());
-          entity.setAddress_suite(userEntity.getAddress_suite());
-          entity.setAddress_city(userEntity.getAddress_city());
-          entity.setAddress_zipcode(userEntity.getAddress_zipcode());
-          entity.setAddress_latitude(userEntity.getAddress_latitude());
-          entity.setAddress_longitude(userEntity.getAddress_longitude());
-          entity.setCompany_name(userEntity.getCompany_name());
-          entity.setCompany_catchPhrase(userEntity.getCompany_catchPhrase());
-          entity.setCompany_bs(userEntity.getCompany_bs());
-          return this.userRepository.save(userEntity);
-        }).orElse(null);
+  public List<CommentDTO> getComments() {
+    String url = "https://jsonplaceholder.typicode.com/comments";
+    CommentDTO[] commentDTOs =
+        this.restTemplate.getForObject(url, CommentDTO[].class);
+    return Arrays.asList(commentDTOs);
   }
 }
-

@@ -5,9 +5,11 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 import com.bootcamp.demo.demo_external_api.controller.GovOperation;
+import com.bootcamp.demo.demo_external_api.dto.CommentDto;
+import com.bootcamp.demo.demo_external_api.dto.PostDto;
 import com.bootcamp.demo.demo_external_api.dto.UserDto;
-import com.bootcamp.demo.demo_external_api.entity.UserEntity;
 import com.bootcamp.demo.demo_external_api.mapper.DtoMapper;
+import com.bootcamp.demo.demo_external_api.model.dto.PostDTO;
 import com.bootcamp.demo.demo_external_api.service.JsonPlaceHolderService;
 
 @RestController
@@ -27,22 +29,16 @@ public class GovController implements GovOperation {
   }
 
   @Override
-  public UserEntity create(UserEntity userEntity) {
-    return this.jsonPlaceHolderService.create(userEntity);
+  public List<PostDto> getJPHPosts() {
+    return this.jsonPlaceHolderService.getPosts().stream() //
+        .map(e -> this.dtoMapper.map(e)) //
+        .collect(Collectors.toList());
   }
 
   @Override
-  public UserEntity getById(Long id) {
-    return this.jsonPlaceHolderService.getById(id);
-  }
-
-  @Override
-  public void deleteById(Long id) {
-    this.jsonPlaceHolderService.deleteById(id);
-  }
-
-  @Override
-  public UserEntity updateById(Long id, UserEntity userEntity) {
-    return this.jsonPlaceHolderService.updateById(id, userEntity);
+  public List<CommentDto> getJPHComments() {
+    return this.jsonPlaceHolderService.getComments().stream() //
+        .map(e -> this.dtoMapper.map(e)) //
+        .collect(Collectors.toList());
   }
 }
