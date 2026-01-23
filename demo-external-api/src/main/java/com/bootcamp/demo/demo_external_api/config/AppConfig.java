@@ -7,6 +7,7 @@ import com.bootcamp.demo.demo_external_api.model.Cat;
 
 // ! @Configuration + @Bean is for creating bean for external libray
 
+// ! All objects created here will be put into Spring Context
 @Configuration
 public class AppConfig {
   @Bean
