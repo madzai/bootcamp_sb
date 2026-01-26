@@ -99,7 +99,6 @@ public class JsonPlaceHolderServiceImpl implements JsonPlaceHolderService {
         .build() //
         .toUriString();
     System.out.println("url=" + url);
-
     PostDTO[] postDTOs = this.restTemplate.getForObject(url, PostDTO[].class);
 
     this.postRepository.deleteAll();
@@ -135,16 +134,16 @@ public class JsonPlaceHolderServiceImpl implements JsonPlaceHolderService {
 
     List<CommentEntity> commentEntities = Arrays.asList(commentDTOs).stream()//
         .map(e -> {
-          // Find PostEntity based on CommentDTO's postId
+          // Find PostEntity based on CommentDTO's postId (foreign key)
           PostEntity postEntity = this.postRepository.findById(e.getPostId()) //
               .orElseThrow(() -> new IllegalArgumentException());
           // Get CommentEntity from CommentDTO
           CommentEntity commentEntity = this.entityMapper.map(e);
-          // Set parent object for CommentEntity, i.e. the PostEntity (with id matches with CommentDTO's postId)
+          // Set parent object for CommentEntity, i.e. the PostEntity (with id matching with CommentDTO's postId)
           commentEntity.setPostEntity(postEntity); // ! Parent Object
           return commentEntity;
         }).collect(Collectors.toList());
-
+    // Save into comments database table
     this.commentRepository.saveAll(commentEntities);
 
     return Arrays.asList(commentDTOs);

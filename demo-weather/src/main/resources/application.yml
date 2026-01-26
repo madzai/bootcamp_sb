@@ -1,6 +1,3 @@
-server:
-  port: 8080
-
 spring:
   datasource: 
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -15,9 +12,10 @@ spring:
       dialect: org.hibernate.dialect.MySQL8Dialect
 
 external-api:
-  jsonplaceholder:
-    domain: "jsonplaceholder.typicode.com" # ip
-    uri:
-      users: "/users"
-      posts: "/posts"
-      comments: "/comments"
+  hk-observatory: 
+    domain: "data.weather.gov.hk"
+    weather:
+      path-segment: "weatherAPI/opendata"
+      path: "/weather.php"
+      dataset:
+        nine-day: "fnd"
