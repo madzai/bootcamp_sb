@@ -13,7 +13,7 @@ spring:
 
 external-api:
   hk-observatory: 
-    domain: "data.weather.gov.hk"
+    domain: "data.weather111.gov.hk"
     weather:
       path-segment: "weatherAPI/opendata"
       path: "/weather.php"
