@@ -1,5 +1,6 @@
-package com.bootcamp.demo.demo_external_api.entity;
+package com.bootcamp.demo.bc_mtr_station.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,21 +15,26 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "jph_posts")
+@Table(name = "mtr_stations")
 @Getter
-@Setter
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class PostEntity {
+@Builder
+public class StationEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  private String title;
-  private String body;
+  @Column(length = 3)
+  private String code;
+  private String description;
+  @Column(length = 3)
+  private String prevCode;
+  @Column(length = 3)
+  private String nextCode;
 
   @ManyToOne
-  @JoinColumn(name = "user_id")
+  @JoinColumn(name = "line_id")
   @Setter
-  private UserEntity userEntity;
+  private LineEntity lineEntity;
+
 }
