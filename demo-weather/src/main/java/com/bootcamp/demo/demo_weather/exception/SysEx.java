@@ -5,7 +5,7 @@ import lombok.Getter;
 @Getter
 public enum SysEx {
   PARAM_NOT_MATCH(90000, "Parameters Not Match."), //
-  URL_NOT_CORRECT(90001, "URL is incorrect."), //
+  REST_CLIENT_EX(90001, "Rest Client API Call Fail."), //
   ;
 
   private int code;

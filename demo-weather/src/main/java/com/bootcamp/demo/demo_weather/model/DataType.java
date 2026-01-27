@@ -19,6 +19,6 @@ public enum DataType {
         .filter(e -> lang.equals(e.getValue())) //
         .findAny() //
         .orElseThrow(
-            () -> new IllegalArgumentException("Invalid Parameter: " + lang));
+            () -> new IllegalArgumentException("Invalid Param: " + lang));
   }
 }

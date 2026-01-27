@@ -26,9 +26,9 @@ public class WeatherController implements WeatherOperation {
       String lang) {
     // exceptions (String -> enum)
     WeatherDTO weatherDTO =
-        this.weatherService.getWeather(DataType.of(dataType), Lang.of(lang));
-    // enum class throwing runtime exception
-
+        this.weatherService.getWeather(DataType.of(dataType), Lang.of(lang)); // TBC.
+        // enum class throwing runtime exception
+    
     NineDayDTO nineDayDTO = null;
     if (weatherDTO instanceof NineDayDTO) {
       nineDayDTO = (NineDayDTO) weatherDTO;
@@ -37,11 +37,10 @@ public class WeatherController implements WeatherOperation {
     System.out.println(nineDayDTO.getUpdateTime());
     System.out.println(nineDayDTO.getSeaTemp().getRecordTime());
     System.out.println(nineDayDTO.getSoilTemp().get(0).getRecordTime());
-
+    
     return nineDayDTO.getForecasts().stream() //
         .map(e -> this.dtoMapper.map(e)) //
-        .sorted((w1,
-            w2) -> w1.getForecastDate().isBefore(w2.getForecastDate()) ? -1 : 1) //
+        .sorted((w1, w2) -> w1.getForecastDate().isBefore(w2.getForecastDate()) ? -1 : 1) //
         .collect(Collectors.toList());
   }
 }

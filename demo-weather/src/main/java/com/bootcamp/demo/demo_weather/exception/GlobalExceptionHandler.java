@@ -1,9 +1,8 @@
 package com.bootcamp.demo.demo_weather.exception;
 
-import java.net.MalformedURLException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.client.ResourceAccessException;
+import org.springframework.web.client.RestClientException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -17,11 +16,11 @@ public class GlobalExceptionHandler {
 
   // RestClientException
   // hardcode wrong url
-  @ExceptionHandler(value = ResourceAccessException.class)
-  public ExceptionDTO handler(ResourceAccessException e) {
+  @ExceptionHandler(value = RestClientException.class)
+  public ExceptionDTO handle(RestClientException e) {
     return ExceptionDTO.builder() //
-        .code(SysEx.URL_NOT_CORRECT.getCode()) //
-        .message(SysEx.URL_NOT_CORRECT.getMessage() + " " + e.getMessage()) //
+        .code(SysEx.REST_CLIENT_EX.getCode()) //
+        .message(SysEx.REST_CLIENT_EX.getMessage() + " " + e.getMessage()) //
         .build();
   }
 }

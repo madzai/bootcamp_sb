@@ -51,7 +51,7 @@ public class NineDayDTO implements WeatherDTO {
 
     @Getter
     public static class ValueDTO {
-      private String value;
+      private Double value;
       private String unit;
     }
   }
